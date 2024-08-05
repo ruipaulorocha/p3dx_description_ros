@@ -1,0 +1,269 @@
+<?xml version="1.0" ?>
+
+<robot name="pioneer3dx">
+  <!-- chassis -->
+  <link name="base_link">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="-0.045 0 0.148"/>
+      <material name="ChassisRed">
+        <color rgba="0.851 0.0 0.0 1.0"/>
+      </material>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/chassis.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.045 0 0.145"/>
+      <geometry>
+        <box size="0.35 0.25 0.14"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- top_plate -->
+  <link name="top_plate">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="top_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/top.stl"/>
+      </geometry>
+      <material name="TopBlack">
+        <color rgba="0.038 0.038 0.038 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0 0"/>
+      <geometry name="pioneer_geom">
+        <box size="0.45 0.38 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_top_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.045 0 0.234"/>
+    <parent link="base_link"/>
+    <child link="top_plate"/>
+  </joint>
+  <!-- swivel -->
+  <link name="swivel">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/swivel.stl"/>
+      </geometry>
+      <material name="swivel">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_swivel_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.185 0 0.055"/>
+    <!--<axis xyz="0 0 1"/>
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" k_velocity="0" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>-->
+    <parent link="base_link"/>
+    <child link="swivel"/>
+  </joint>
+  <!-- center_hubcap -->
+  <link name="center_hubcap">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/center_hubcap.stl"/>
+      </geometry>
+      <material name="swivel">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="swivel_hubcap_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.026 0 -0.016"/>
+    <!--<axis xyz="0 1 0"/>
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" k_velocity="0" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>-->
+    <parent link="swivel"/>
+    <child link="center_wheel"/>
+  </joint>
+  <!-- center_wheel -->
+  <link name="center_wheel">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/center_wheel.stl"/>
+      </geometry>
+      <material name="WheelBlack">
+        <color rgba="0.117 0.117 0.117 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="-1.57079635 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.0375"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="center_wheel_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.0035 0 -0.001"/>
+    <parent link="center_wheel"/>
+    <child link="center_hubcap"/>
+  </joint>
+  <link name="p3dx_left_wheel">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/left_wheel.stl"/>
+      </geometry>
+      <material name="WheelBlack">
+        <color rgba="0.117 0.117 0.117 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="-1.57079635 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!--<mesh filename="package://p3dx_description_ros/meshes/${suffix}_wheel.stl"/> -->
+        <cylinder length="0.01" radius="0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_left_hubcap_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="p3dx_left_wheel"/>
+    <child link="p3dx_left_hubcap"/>
+  </joint>
+  <link name="p3dx_left_hubcap">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/left_hubcap.stl"/>
+      </geometry>
+      <material name="HubcapYellow">
+        <color rgba="1.0 0.811 0.151 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_left_wheel_joint" type="fixed">
+    <!--<axis xyz="0 1 0"/>
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>-->
+    <origin rpy="0 0 0" xyz="0 0.158 0.091"/>
+    <parent link="base_link"/>
+    <child link="p3dx_left_wheel"/>
+  </joint>
+  <link name="p3dx_right_wheel">
+    <inertial>
+      <mass value="0.5"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
+    </inertial>
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/right_wheel.stl"/>
+      </geometry>
+      <material name="WheelBlack">
+        <color rgba="0.117 0.117 0.117 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="-1.57079635 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!--<mesh filename="package://p3dx_description_ros/meshes/${suffix}_wheel.stl"/> -->
+        <cylinder length="0.01" radius="0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_right_hubcap_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="p3dx_right_wheel"/>
+    <child link="p3dx_right_hubcap"/>
+  </joint>
+  <link name="p3dx_right_hubcap">
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/right_hubcap.stl"/>
+      </geometry>
+      <material name="HubcapYellow">
+        <color rgba="1.0 0.811 0.151 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_right_wheel_joint" type="fixed">
+    <!--<axis xyz="0 1 0"/>
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>-->
+    <origin rpy="0 0 0" xyz="0 -0.158 0.091"/>
+    <parent link="base_link"/>
+    <child link="p3dx_right_wheel"/>
+  </joint>
+  <!-- front_sonar -->
+  <link name="front_sonar">
+    <visual name="front_sonar_vis">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry name="pioneer_geom">
+        <mesh filename="package://p3dx_description_ros/meshes/front_sonar.stl"/>
+      </geometry>
+      <material name="SonarYellow">
+        <color rgba="0.715 0.583 0.210 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_front_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.109 0 0.209"/>
+    <parent link="base_link"/>
+    <child link="front_sonar"/>
+  </joint>
+  <!-- lms100 laser -->
+  <link name="lms100">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://p3dx_description_ros/meshes/lms100.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="lms100_joint" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.16 0 0.1"/> <!-- 0.15 -->
+    <parent link="base_link"/>
+    <child link="lms100"/>
+  </joint>
+</robot>

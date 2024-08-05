@@ -1,0 +1,22 @@
+<?xml version="2.0"?>
+<package format="3">
+  <name>p3dx_description_ros</name>
+  <version>2.0.0</version>
+  <description>URDF file descriptions for ROS systems (works with ROS1 and ROS2)</description>
+  <maintainer email="lucyannofrota@gmail.com">Lucyanno Frota</maintainer>
+  <maintainer email="rprocha@isr.uc.pt">Rui P. Rocha</maintainer>  
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <depend>urdf</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

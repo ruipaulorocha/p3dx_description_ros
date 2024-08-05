@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="tf_prefix" default=""/>
+  <arg name="model" default="$(find p3dx_description_ros)/urdf/pioneer3dx_fixed_joints.xml"/>
+  
+  <param name="robot_description" textfile="$(arg model)" />  
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+  	<param name="tf_prefix" value="$(arg tf_prefix)"/>
+  </node>
+  
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+</launch>
