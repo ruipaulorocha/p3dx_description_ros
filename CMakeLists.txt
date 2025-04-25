@@ -4,6 +4,7 @@ project(p3dx_description_ros)
 cmake_policy(SET CMP0057 NEW)
 
 find_package(urdf REQUIRED)
+find_package(xacro REQUIRED)
 
 find_package(catkin QUIET)
 find_package(ament_cmake QUIET)
